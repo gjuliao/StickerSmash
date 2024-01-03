@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 import React from 'react'
-import { Image } from 'react-native-web'
 
 export default function ImageViewer({PlaceHolderImageSource}) {
   return (
