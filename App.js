@@ -10,8 +10,10 @@ import { useState } from 'react';
 import CircleButton from './components/CircleButton';
 import IconButtons from './components/IconButtons';
 import EmojiPicker from './components/EmojiPicker';
+import EmojiList from './components/EmojiList';
 
 export default function App() {
+  const [pickedEmoji, setPickedEmoji] = useState(null);
   const [showAppOptions, setShowAppOptions] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(true);
 
@@ -40,7 +42,7 @@ export default function App() {
     setIsModalVisible(true);
   }
 
-  const onModalCLose = () => {
+  const onModalClose = () => {
     setIsModalVisible(true);
   }
 
@@ -64,7 +66,9 @@ export default function App() {
             <IconButtons icon='save-alt' label='Save' onPress={onSaveImageAsync}/>
           </View>
 
-          <EmojiPicker isVisible={isModalVisible} onClose={onModalCLose}/>
+          <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+            <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+          </EmojiPicker>
 
         </View>
 
