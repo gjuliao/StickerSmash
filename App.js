@@ -11,7 +11,7 @@ import CircleButton from './components/CircleButton';
 import IconButtons from './components/IconButtons';
 
 export default function App() {
-  const [showAppOptions, setShowAppOptions] = useState(null);
+  const [showAppOptions, setShowAppOptions] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -30,6 +30,7 @@ export default function App() {
   };
 
   const onReset = () => {
+    console.log('pressed on reset');
     setShowAppOptions(false);
   };
 
@@ -44,24 +45,29 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-    {showAppOptions ? (
-      <View style={styles.optionsContainer}>
-        <View style={styles.optionsRow}>
-          <IconButtons icon={refresh} label='Reset' onPress={onReset}/>
-          <CircleButton onPress={onAddSticker} />
-          <IconButtons icon={save-alt} label='Save' onPress={onSaveImageAsync}/>
+      {showAppOptions ? (
+        <View style={styles.optionsContainer}>
+
+          <View style={styles.imageContainer}>
+            <ImageViewer placeHolderImageSource={PlaceholderImage} selectedImage={selectedImage} />
+          </View>
+          
+          <View style={styles.optionsRow}>
+            <IconButtons icon='refresh' label='Reset' onPress={onReset}/>
+            <CircleButton onPress={onAddSticker} />
+            <IconButtons icon='save-alt' label='Save' onPress={onSaveImageAsync}/>
+          </View>
+
         </View>
-        {/* <ImageViewer PlaceHolderImageSource={PlaceholderImage} selectedImage={selectedImage} /> */}
-      </View>
 
     ) : (
-      <View style={styles.footContainer}>
-        <Button theme='primary' label="Choose a photo" onPress={pickImageAsync} />
-        <Button label="Use this photo" onPress={() => setShowAppOptions(true)}/>
-      </View>
+        <View style={styles.footContainer}>
+          <Button theme='primary' label="Choose a photo" onPress={pickImageAsync} />
+          <Button label="Use this photo" onPress={() => setShowAppOptions(true)}/>
+        </View>
     )}
       <StatusBar style="auto" />
-    </View>
+   </View>
   );
 }
 
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    paddingTop: 58
+    paddingBottom: 200,
   },
   footContainer: {
     alignItems: 'center',
