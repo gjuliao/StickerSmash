@@ -9,9 +9,11 @@ import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import CircleButton from './components/CircleButton';
 import IconButtons from './components/IconButtons';
+import EmojiPicker from './components/EmojiPicker';
 
 export default function App() {
-  const [showAppOptions, setShowAppOptions] = useState(false);
+  const [showAppOptions, setShowAppOptions] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -35,7 +37,11 @@ export default function App() {
   };
 
   const onAddSticker = () => {
-    // pending info
+    setIsModalVisible(true);
+  }
+
+  const onModalCLose = () => {
+    setIsModalVisible(true);
   }
 
   const onSaveImageAsync = async () => {
@@ -57,6 +63,8 @@ export default function App() {
             <CircleButton onPress={onAddSticker} />
             <IconButtons icon='save-alt' label='Save' onPress={onSaveImageAsync}/>
           </View>
+
+          <EmojiPicker isVisible={isModalVisible} onClose={onModalCLose}/>
 
         </View>
 
