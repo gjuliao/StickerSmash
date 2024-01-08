@@ -11,12 +11,12 @@ import CircleButton from './components/CircleButton';
 import IconButtons from './components/IconButtons';
 import EmojiPicker from './components/EmojiPicker';
 import EmojiList from './components/EmojiList';
+import EmojiSticker from './components/EmojiSticker';
 
 export default function App() {
   const [pickedEmoji, setPickedEmoji] = useState(null);
-  const [showAppOptions, setShowAppOptions] = useState(true);
-  const [isModalVisible, setIsModalVisible] = useState(true);
-
+  const [showAppOptions, setShowAppOptions] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImageAsync = async () => {
@@ -34,7 +34,6 @@ export default function App() {
   };
 
   const onReset = () => {
-    console.log('pressed on reset');
     setShowAppOptions(false);
   };
 
@@ -53,12 +52,14 @@ export default function App() {
   return (
     <View style={styles.container}>
 
+          <View style={styles.imageContainer}>
+            <ImageViewer placeHolderImageSource={PlaceholderImage} selectedImage={selectedImage} />
+            {pickedEmoji !== null ? <EmojiSticker imageSize={40} stickerSource={pickedEmoji}/> : null}
+          </View>
+
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
 
-          <View style={styles.imageContainer}>
-            <ImageViewer placeHolderImageSource={PlaceholderImage} selectedImage={selectedImage} />
-          </View>
           
           <View style={styles.optionsRow}>
             <IconButtons icon='refresh' label='Reset' onPress={onReset}/>
@@ -92,7 +93,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    paddingBottom: 200,
+    paddingBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   footContainer: {
     alignItems: 'center',
